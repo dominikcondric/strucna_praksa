@@ -1,0 +1,27 @@
+version: "3.5"
+services:
+
+  studenti-app:
+    build:
+      context: .
+      dockerfile: ./Dockerfile
+    container_name: studenti-app
+    volumes:
+      - .:/var/www/html/
+    ports:
+      - "8888:80"
+
+  studenti-db:
+    image: bitnami/mariadb:10.2
+    container_name: studenti-db
+    environment:
+      MARIADB_ROOT_PASSWORD: 'secret'
+      MARIADB_USER: 'live'
+      MARIADB_PASSWORD: 'secret'
+      MARIADB_DATABASE: 'studenti'
+    volumes:
+      - dbvolume:/bitnami
+      - ./docker/db/init.d:/docker-entrypoint-initdb.d
+
+volumes:
+  dbvolume:
