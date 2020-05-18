@@ -75,3 +75,7 @@ Dodatno (nije potrebno, ali ako budete turbo brzi):
 
 - Upotreba nekog CSS frameworka da cijela priča izgleda ljepše
 
+
+## Napredak
+18.5. - napravljene migracije i modeli te veze između modela(nisam siguran ako su dobre)
+
