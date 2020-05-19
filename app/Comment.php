@@ -8,17 +8,19 @@ use Illuminate\Database\Eloquent\Relations\HasOneThrough;
 
 class Comment extends Model
 {
-    protected $primaryKey = 'comment_id';
-    
+
+    protected $fillable = [
+        'comment',
+    ];
 
     public function user()
     {
-        return $this->belongsTo('App\User', 'user_id');
+        return $this->belongsTo('App\User');
     }
 
-    public function ticket()
+    public function tickets()
     {
-        return $this->belongsTo('App\Ticket', 'ticket_id');
+        return $this->belongsToMany('App\Ticket')->withTimestamps();
     }
 }
 

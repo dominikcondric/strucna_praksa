@@ -2,12 +2,13 @@
 
 namespace App;
 
-use Illuminate\Database\Eloquent\Model;
+use Illuminate\Contracts\Auth\MustVerifyEmail;
+use Illuminate\Foundation\Auth\User as Authenticatable;
+use Illuminate\Notifications\Notifiable;
 
-class User extends Model
+class User extends Authenticatable
 {
-
-    protected $primaryKey = 'user_id';
+    use Notifiable;
 
     /**
      * The attributes that are mass assignable.
@@ -15,15 +16,33 @@ class User extends Model
      * @var array
      */
     protected $fillable = [
-        'first_name', 'last_name'
+        'first_name', 'email',
+    ];
+
+    /**
+     * The attributes that should be hidden for arrays.
+     *
+     * @var array
+     */
+    /* protected $hidden = [
+        'remember_token',
+    ]; */
+
+    /**
+     * The attributes that should be cast to native types.
+     *
+     * @var array
+     */
+    protected $casts = [
+        'email_verified_at' => 'datetime',
     ];
 
     public function tickets() {
-        return $this->belongsToMany('App\Ticket', 'ticket_user', 'user_id', 'ticket_id')->withPivot('comment_id')->withTimestamps();
+        return $this->belongsToMany('App\Ticket')->withTimestamps();
     }
 
     public function comments()
     {
-        return $this->hasMany('App\Comment', 'comment_id');
+        return $this->hasMany('App\Comment');
     }
 }

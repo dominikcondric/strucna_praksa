@@ -7,22 +7,27 @@ use Illuminate\Database\Eloquent\Model;
 class Ticket extends Model
 {
 
-    protected $primaryKey = 'ticket_id';
+    protected $fillable = [
+        'first_name', 'last_name', 'contactNum', 'email', 'description',
+    ];
+
+    protected $casts = [
+        'email_verified_at' => 'datetime',
+    ];
 
     public function users()
     {
-        return $this->belongsToMany('App\User', 'ticket_user', 'ticket_id', 'user_id')->withTimestamps();
+        return $this->belongsToMany('App\User')->withTimestamps();
     }
 
     public function comments()
     {
-        return $this->hasMany('App\Comment', 'comment_id');
+        return $this->belongsToMany('App\Comment')->withTimestamps();
     }
 
     public function state()
     {
-        return $this->belongsTo('App\State', 'state_id', 'ticket_id');
+        return $this->belongsTo('App\State');
     }
-
-    
+   
 }

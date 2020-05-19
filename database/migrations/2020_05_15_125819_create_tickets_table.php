@@ -15,13 +15,14 @@ class CreateTicketsTable extends Migration
     public function up()
     {
         Schema::create('tickets', function (Blueprint $table) {
-            $table->id('ticket_id');
+            $table->id();
             $table->string('first_name')->nullable();
             $table->string('last_name')->nullable();
             $table->string('contactNum')->nullable();
             $table->string('email')->unique();
+            $table->timestamp('email_verified_at')->nullable();
             $table->text('description');
-            $table->foreignId('state_id')->constrained('states', 'state_id')->default(1);
+            $table->foreignId('state_id')->constrained()->default('1');
             $table->timestamps();
         });
     }
