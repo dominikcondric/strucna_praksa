@@ -3,64 +3,37 @@
     <head>
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1">
-
+        <link href="{{ asset('css\layout.css') }} " rel="stylesheet" type="text/css"/>
         <title>My Ticketing system!</title>
-
-        <!-- Styles -->
-        <style>
-            html, body {
-                background-color: #fff;
-                color: #636b6f;
-                font-family: 'Comic Sans MS', sans-serif;
-                font-weight: 200;
-                height: 100vh;
-                margin: 0;
-            }
-
-            .full-height {
-                height: 100vh;
-            }
-
-            .flex-center {
-                align-items: center;
-                display: flex;
-                justify-content: center;
-            }
-
-            .position-ref {
-                position: relative;
-            }
-
-            .top-right {
-                position: absolute;
-                right: 10px;
-                top: 18px;
-            }
-
-            .content {
-                text-align: center;
-            }
-
-            .title {
-                font-size: 84px;
-            }
-
-            .links > a {
-                color: #636b6f;
-                padding: 0 25px;
-                font-size: 13px;
-                font-weight: 600;
-                letter-spacing: .1rem;
-                text-decoration: none;
-                text-transform: uppercase;
-            }
-
-            .m-b-md {
-                margin-bottom: 30px;
-            }
-        </style>
     </head>
-    <body>
-        @yield('welcome')
+    <body style="background-color: rgb(213, 215, 216)">
+        <div id="layout-header">
+           <a href="/about-us" style="text-decoration: none"> <h2 class="top-right" style="color: white">Asseco</h2> </a>
+            <div class="title m-b-md">
+               The "Ticketing system"
+            </div>
+
+            <div id="links-table">
+                <table>
+                    <tr>
+                        <td>
+                            <a href="/tickets/submit-a-ticket" class="links">Submit a ticket!</a>
+                            <a href="/contact" class="links">Contact</a>
+                            <a href="/faq" class="links">FAQ</a>
+                        </td>
+                    </tr>
+                </table>
+            </div>
+        </div>
+        
+        <div id="wrapper">
+            @yield('content')
+        </div>
+        
+        <div id="layout-footer">
+            <table>
+
+            </table>
+        </div>
     </body>
 </html>

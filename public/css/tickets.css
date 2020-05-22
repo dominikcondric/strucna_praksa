@@ -1,0 +1,30 @@
+#ticket-form {
+    position: absolute;
+    height: 100px;
+    margin-top: 20px;
+    font-size: 30px;
+    justify-content: center;
+    width: 90%;
+    font-family: Arial, Helvetica, sans-serif;
+    margin-left: 10%;
+    margin-right: 10%;
+    
+}
+
+#submit-button {
+    background-color: royalblue;
+    color: white;
+    height: 50px;
+    width: 150px;
+    font-size: 27px;
+    font-family: 'Gill Sans MT';
+}
+
+.input {
+   width: 80%;
+   height: 30px;
+   margin-bottom: 20px;
+   font-size: 20px;
+   font-family: 'Trebuchet MS';
+}
+

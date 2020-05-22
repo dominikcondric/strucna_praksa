@@ -77,6 +77,6 @@ Dodatno (nije potrebno, ali ako budete turbo brzi):
 
 
 ## Napredak
-18.5. - napravljene migracije i modeli te veze između modela(nisam siguran ako su dobre)
+18.5. - napravljene migracije i modeli te veze između modela(nisam siguran ako su dobre)  
 19.5. - popravljeni odnosi između modela(comment i ticket) i dodani atributi u tablice
 

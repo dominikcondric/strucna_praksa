@@ -22,7 +22,7 @@ class CreateTicketsTable extends Migration
             $table->string('email')->unique();
             $table->timestamp('email_verified_at')->nullable();
             $table->text('description');
-            $table->foreignId('state_id')->constrained()->default('1');
+            $table->foreignId('state_id')->constrained();
             $table->timestamps();
         });
     }
