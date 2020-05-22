@@ -26,14 +26,15 @@
             </div>
         </div>
         
-        <div id="wrapper">
-            @yield('content')
-        </div>
+      
+        @yield('content')
         
-        <div id="layout-footer">
-            <table>
+        <div id="page-container">
+            <div id="content-wrap">
+                <footer id="footer">
 
-            </table>
+                </footer>
+            </div>
         </div>
     </body>
 </html>
