@@ -14,7 +14,11 @@ class TicketController extends Controller
      */
     public function index()
     {
-        //
+        $tickets = Ticket::all();
+
+        return view('tickets.tickets', [
+            'tickets' => $tickets
+        ]);
     }
 
     /**
@@ -24,7 +28,7 @@ class TicketController extends Controller
      */
     public function create()
     {
-        return view('tickets/submit-a-ticket');
+        return view('tickets/create');
     }
 
     /**
@@ -35,7 +39,24 @@ class TicketController extends Controller
      */
     public function store(Request $request)
     {
-       
+        $request->validate([
+            'first_name' => 'required',
+            'last_name' => 'required',
+            'contactNum' => 'required|max:20|min:5|regex:/^[0-9]+$/',
+            // 'email' => 'bail|nullable|regex:^a-zA-z0-9_\.\.+@.+',
+            'description' => 'required|max:100|min:5'
+        ]);
+
+        Ticket::create([
+            'first_name' => $request->first_name,
+            'last_name' => $request->last_name,
+            'contactNum' => $request->contactNum,
+            'email' => $request->email,
+            'description' => $request->description,
+            'state_id' => 1,
+        ]);
+
+        return redirect('tickets.thanks');
     }
 
     /**
@@ -57,7 +78,9 @@ class TicketController extends Controller
      */
     public function edit(Ticket $ticket)
     {
-        //
+        return view('tickets.edit', [
+            'ticket' => $ticket
+        ]);
     }
 
     /**

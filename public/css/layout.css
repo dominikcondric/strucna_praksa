@@ -1,79 +1,90 @@
 html, body {
     position: relative;
-    font-family: 'Times New Roman', sans-serif;
+    font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+    font-weight: 200;
     margin: 0cm;
     min-height: 100vh;
     height: 100%;
+    color: rgb(73, 73, 73);
 }
 
 body {
     position: relative;
 }
 
-.flex-center {
-    align-items: center;
-    display: flex;
-    justify-content: center;
-}
-
 .position-ref {
     position: relative;
 }
 
-.top-right {
+#login-button {
     position: absolute;
     right: 30px;
-    top: 10px;
+    top: 20px;
+}
+
+#login-button:hover {
+    background-color: lightblue;
+    transition-duration: 0.2s;
+    padding: 3px;
+    border-radius: 10%;
+    transition-timing-function: ease-in;
+
+}
+
+#login-area {
+    text-align: center;
+    background-color:  rgb(1, 84, 151);
+    height: 50vh;
+    width: 50%;
+    margin-left: 24%;
+    font-size: xx-large;
+    color:white;
+    border-style: none;
+    border-radius: 22%;
+}
+
+#button {
+    width: 80px;
+    height: 30px;
+    background-color: white;
+    font-size: large;
+    color: rgb(1, 84, 151);
+    border-style: none;
+    border-radius: 10%;
 }
 
 .content {
-    position: absolute;
-    display: grid;
-    top: 20vh;
-    bottom: 40vh;
-    left: 10vh;
-    right: 10vh;
-    line-height: 50px;
-    text-align: center;
-    margin: 20px;
+    position: relative;
+    min-height: 50vh;
+    margin: 50px;
+    margin-left: 100px;
+    margin-right: 100px;
 }
 
-.content-item {
-    margin: 10px;
-    border-radius: 20%;
-    text-align: center;
-    vertical-align: middle;
-    justify-content: center;
-}
-
-.title {
+#title {
     position: absolute;
     font-size: 54px;
     color: whitesmoke;
-    top: 120px;
-    left: 10px;    
+    top: 80px;
+    left: 30px;    
 }
 
 .links {
     color: white;
     font-size: 20px;
     letter-spacing: .1rem;
-    font-style: oblique;
-    font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
+    font-weight: 500;
     margin: 20px;
     text-decoration: none;
 }
 
 .links:hover {
-    color: rgb(1, 34, 12);
+    color: rgb(73, 73, 73);
     background-color: whitesmoke;
     transition-duration: 0.2s;
-    border-radius: 50%;
-    padding: 20px;
-    font-size: 20px;
+    border-radius: 20%;
+    padding: 10px;
     letter-spacing: .1rem;
-    font-style: oblique;
-    font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
 }
 
 .m-b-md {
@@ -81,54 +92,36 @@ body {
 }
 
 .container {
-    position: absolute;
-    top: 25vh;
-    left: 20vh;
-    right: 20vh;
-    margin-left: 150px;
-    margin-right: 150px;
-    height: 50vh;
+    position: relative;
     text-align: center;
-    justify-self: center;
-    justify-content: center;
+    height: 40vh;
+    left: 20vh;
     color: rgb(65, 122, 228);
-    display: grid;
-    gap: 30px;
-    grid-template-columns: 70% 30%;
-}
-
-.container > div {
-    display: flex;
+    border-style: dotted;
     font-size: xx-large;
-    align-items: center;
-    justify-content: center;
-    flex-direction: column;
-    background-color: rgb(224, 224, 200);
-    border-style: groove;
-    border-radius: 25%;
+    width: 70%;
 }
 
-.container-item:hover {
-   animation-name: moving;
-   animation-timing-function: ease-in;
-   animation-iteration-count: infinite;
-   animation-direction: alternate;
-   animation-duration: 0.4s;
+#logo {
+    position: absolute;
+    font-size: 100px;
+    font-weight: 700;
+    vertical-align: middle;
+    bottom: 0vh;
+    left: 39%;
 }
 
 #layout-header {
     position: relative;
     justify-content: center;
-    right: 0vh;
-    left: 0vh;
     height: 200px;
     display: flex;
-    background-color:rgb(1, 34, 12);
+    background-color:rgb(1, 84, 151);
 }
 
 #page-container {
     position: relative;
-    min-height: 100vh;
+    min-height: 20vh;
 }
 
 #content-wrap {
@@ -137,10 +130,10 @@ body {
 
 #footer {
     position: absolute;
-    bottom: 0;
+    bottom: 0vh;
     width: 100%;
     height: 200px;
-    background-color: rgb(1, 34, 12);
+    background-color:rgb(1, 84, 151);
 }
 
 #links-table {

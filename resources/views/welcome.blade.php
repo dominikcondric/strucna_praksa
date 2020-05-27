@@ -1,6 +1,10 @@
 @extends('layout')
 
 
+@section('links')
+    <link rel="stylesheet" href="{{ asset('css/welcome.css') }}">
+@endsection
+
 @section('content')
 
     {{-- <div class="flex-center position-ref full-height">
@@ -18,18 +22,16 @@
             </div>
         @endif --}}
 
-        <div class="content">
-            <div class="content-item" style="height: 54vh" style="margin: 50px">
-                <h2><big>You may ask yourself what ticketing system is...</big></h2>
-                <p style="font-size: 21px; margin: 20px">Well, according to Wikipedia : <i>"An issue tracking system (also ITS, trouble ticket system, 
-                    support ticket, request management or incident ticket system) 
-                    is a computer software package that manages and maintains lists of issues.
-                    Issue tracking systems are generally used in collaborative settings—especially 
-                    in large or distributed collaborations—but can also be employed by individuals 
-                    as part of a time management or personal productivity regime. These systems often 
-                    encompass resource allocation, time accounting, priority management, and oversight
-                    workflow in addition to implementing a centralized issue registry."</i></p>
-            </div>
+        <div id="welcome-item" style="height: 54vh" style="margin: 50px">
+            <h2><big>You may ask yourself what ticketing system is...</big></h2>
+            <p style="font-size: 30px; margin: 30px">Well, according to Wikipedia : <i>"An issue tracking system (also ITS, trouble ticket system, 
+                support ticket, request management or incident ticket system) 
+                is a computer software package that manages and maintains lists of issues.
+                Issue tracking systems are generally used in collaborative settings—especially 
+                in large or distributed collaborations—but can also be employed by individuals 
+                as part of a time management or personal productivity regime. These systems often 
+                encompass resource allocation, time accounting, priority management, and oversight
+                workflow in addition to implementing a centralized issue registry."</i></p>
         </div>
         
 @endsection

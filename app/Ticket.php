@@ -8,7 +8,7 @@ class Ticket extends Model
 {
 
     protected $fillable = [
-        'first_name', 'last_name', 'contactNum', 'email', 'description',
+        'first_name', 'last_name', 'contactNum', 'email', 'description', 'state_id'
     ];
 
     protected $casts = [
