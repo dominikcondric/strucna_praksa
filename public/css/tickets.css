@@ -1,7 +1,6 @@
 .ticket-form {
     font-size: xx-large;
-    font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
-    font-weight: 200;
+    font-weight: 700;
     margin-top: 50px;
 }
 
@@ -11,7 +10,7 @@
     height: 50px;
     width: 150px;
     font-size: 27px;
-    font-family: 'Gill Sans MT';
+    border-style: none;
 }
 
 .input {
@@ -20,6 +19,7 @@
    margin-bottom: 20px;
    font: inherit;
    font-size: 25px;
+   font-weight: 200;
 }
 
 .input-box {
@@ -28,14 +28,43 @@
     height: 160px;
     font: inherit;
     font-size: 25px;
+    font-weight: 200;
+}
+    
+
+.edit-button {
+    background-color: rgb(1, 84, 151);
+    color: white;
+    height: 60px;
+    width: 120px;
+    font: inherit;
+    border-radius: 15%;
+    border-style: none;
+    font-weight: 600;
+    font-size: 25px;
 }
 
-#ticket-id {
-    position: relative;
-    margin-left: 50px;
-    padding: 20px;
-    margin-bottom: 10px;
-    height: 10vh;
+.edit-button:hover {
+    border-style: ridge;
+    border-width: 5px;
+    border-color: white;
+    transition-duration: 120ms;
+}
+
+#ticket-table {
+    font-size: x-large;
+    font-weight: 900;
+}
+
+.ticket-table-item {
+    padding-right: 500px;
+    padding-bottom: 20px;
+}
+
+#select-menu {
+    font: inherit;
     font-size: 20px;
+    height: 40px;
+    width: 20%;
 }
 

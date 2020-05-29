@@ -8,6 +8,8 @@
     <form method="POST" action="/users" autocomplete="off">
         <big>Username: </big> <input type="text" name="username" style="width: 50%; height: 30px; font-size: x-large"><br>
         <big>Password: </big> <input type="password" name="pass" style="width: 50%; height: 30px; font-size: x-large"><br>
+        <br><br>
+        <button type="submit" class="button" style="width: 200px; height: 80px; font-size: 40px">Login</button>
     </form>
 </div>
 @endsection

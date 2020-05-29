@@ -13,9 +13,13 @@
                <a href="/" style="text-decoration: none"><h1 id="title">The "Ticketing system"</h1></a>
             </div>
 
-            <div id="login-button">
+            <div id="login-button-area">
                 <form action="/login">
-                    <button id="button">{{ $loggedIn }}</button>
+                    @if ($loggedIn['id'] != 0)
+                        <button class="button">{{ $loggedIn['name'] }}</button>
+                    @else
+                        <button class="button"> Login </button>
+                    @endif
                 </form>    
             </div>
 
@@ -23,10 +27,16 @@
                 <table>
                     <tr>
                         <td>
-                            <a href="/tickets/create" class="links">Submit a ticket</a>
-                            <a href="/contact" class="links">Contact</a>
-                            <a href="/faq" class="links">FAQ</a>
-                            <a href="/about-us" class="links">About Us</a>
+                            @if ($loggedIn['id'] != 0)
+                                <a href="/tickets" class="links">Tickets</a>
+                                <a href="/comments" class="links">Comments</a>
+                                <a href="/states" class="links">States</a>
+                                <a href="/users" class="links">Users</a>
+                            @else
+                                <a href="/contact" class="links">Contact</a>
+                                <a href="/faq" class="links">FAQ</a>
+                                <a href="/about-us" class="links">About Us</a>
+                            @endif
                         </td>
                     </tr>
                 </table>
@@ -37,12 +47,12 @@
             @yield('content')
         </div> 
         
-        <div id="page-container">
-            <div id="content-wrap">
-                <footer id="footer">
-                    <a href="/about-us" style="text-decoration: none"> <h2 id="logo" style="color: white">Asseco</h2></a>
-                </footer>
-            </div>
+        
+
+        <div id="footer-wrap">
+            <footer id="footer">
+                <a href="/about-us" style="text-decoration: none"> <h2 id="logo" style="color: white">Asseco</h2></a>
+            </footer>
         </div>
     </body>
 </html>

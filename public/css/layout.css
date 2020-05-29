@@ -16,13 +16,13 @@ body {
     position: relative;
 }
 
-#login-button {
+#login-button-area {
     position: absolute;
     right: 30px;
     top: 20px;
 }
 
-#login-button:hover {
+#login-button-area:hover {
     background-color: lightblue;
     transition-duration: 0.2s;
     padding: 3px;
@@ -32,18 +32,21 @@ body {
 }
 
 #login-area {
+    position: absolute;
+    top: 5vh;
+    left: 15%;
     text-align: center;
     background-color:  rgb(1, 84, 151);
-    height: 50vh;
-    width: 50%;
-    margin-left: 24%;
+    height: 70vh;
+    width: 70%;
     font-size: xx-large;
     color:white;
     border-style: none;
     border-radius: 22%;
 }
 
-#button {
+.button {
+    font-weight: 700;
     width: 80px;
     height: 30px;
     background-color: white;
@@ -55,8 +58,10 @@ body {
 
 .content {
     position: relative;
-    min-height: 50vh;
-    margin: 50px;
+    min-height: 80vh;
+    margin-top: 30px;
+    margin-top: 30px;
+    margin-bottom: 20px;
     margin-left: 100px;
     margin-right: 100px;
 }
@@ -119,12 +124,8 @@ body {
     background-color:rgb(1, 84, 151);
 }
 
-#page-container {
+#footer-wrap {
     position: relative;
-    min-height: 20vh;
-}
-
-#content-wrap {
     padding-bottom: 200px;
 }
 

@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Ticket;
 use Illuminate\Http\Request;
+use PhpParser\Node\Stmt\Echo_;
 
 class TicketController extends Controller
 {
@@ -14,10 +15,9 @@ class TicketController extends Controller
      */
     public function index()
     {
-        $tickets = Ticket::all();
-
+        if(\App\User::$loggedIn == "Login") return redirect('/welcome');
         return view('tickets.tickets', [
-            'tickets' => $tickets
+            'tickets' => Ticket::all()
         ]);
     }
 
@@ -28,7 +28,10 @@ class TicketController extends Controller
      */
     public function create()
     {
-        return view('tickets/create');
+        if(\App\User::$loggedIn == "Login") return redirect('/welcome');
+        return view('tickets/create', [
+            'message' => null
+        ]);
     }
 
     /**
@@ -47,16 +50,27 @@ class TicketController extends Controller
             'description' => 'required|max:100|min:5'
         ]);
 
-        Ticket::create([
+        $ticket = Ticket::create([
             'first_name' => $request->first_name,
             'last_name' => $request->last_name,
             'contactNum' => $request->contactNum,
             'email' => $request->email,
             'description' => $request->description,
-            'state_id' => 1,
+            'state_id' => 1
         ]);
 
-        return redirect('tickets.thanks');
+        $minTickets = \App\User::first()->tickets()->count();
+        $leastTicketsUser = \App\User::first();
+        foreach (\App\User::all() as $user) {
+            if ($user->tickets()->count() < $minTickets) {
+                $minTickets = $user->tickets()->count();
+                $leastTicketsUser = $user;
+            }
+        }
+
+        $ticket->users()->attach($leastTicketsUser->id);
+
+        return view('tickets.thanks');
     }
 
     /**
@@ -67,7 +81,10 @@ class TicketController extends Controller
      */
     public function show(Ticket $ticket)
     {
-        //
+        if(\App\User::$loggedIn == "Login") return redirect('/welcome');
+        return view('/tickets.ticket', [
+            'ticket' => $ticket
+        ]);
     }
 
     /**
@@ -78,6 +95,7 @@ class TicketController extends Controller
      */
     public function edit(Ticket $ticket)
     {
+        if(\App\User::$loggedIn == "Login") return redirect('/welcome');
         return view('tickets.edit', [
             'ticket' => $ticket
         ]);
@@ -104,5 +122,16 @@ class TicketController extends Controller
     public function destroy(Ticket $ticket)
     {
         //
+    }
+
+    public function search(Request $request) {
+        if (Ticket::where("$request->field", $request->search)->exists()) {
+            $tickets = Ticket::where("$request->field", $request->search)->get();
+            return redirect('/tickets');
+        } else {
+           return view('/tickets/create', [
+                'message' => "That ticket doesn't exist"
+           ]);
+        }
     }
 }

@@ -22,7 +22,7 @@
             </div>
         @endif --}}
 
-        <div id="welcome-item" style="height: 54vh" style="margin: 50px">
+        <div id="welcome-item" style="margin: 50px">
             <h2><big>You may ask yourself what ticketing system is...</big></h2>
             <p style="font-size: 30px; margin: 30px">Well, according to Wikipedia : <i>"An issue tracking system (also ITS, trouble ticket system, 
                 support ticket, request management or incident ticket system) 

@@ -25,6 +25,8 @@ Route::get('/login', function () {
     return view('login');
 });
 
+////////////////////////////////////////////////////////////// TICKETS
+
 Route::get('/tickets', 'TicketController@index');
 
 Route::get('/tickets/create', 'TicketController@create');
@@ -33,25 +35,25 @@ Route::get('/tickets/thanks', function () {
     return view('tickets.thanks');
 });
 
+Route::post('/tickets/search', 'TicketController@search');
+
 Route::get('/tickets/{ticket}', 'TicketController@show');
 
 Route::post('/tickets', 'TicketController@store');
 
-Route::post('/tickets/search', function (Request $request) {
-    if (Ticket::where([
-        ['id', '=', $request->ticketID],
-        ['first_name', '=', $request->first_name],
-        ['last_name', '=', $request->last_name]
-        ])->exists()) {
-        return redirect("/tickets/$request->ticketID/edit");
-    } else {
-       return redirect('/welcome');
-    }
-});
-
 Route::get('/tickets/{ticket}/edit', 'TicketController@edit');
 
 Route::put('/tickets/{ticket}', 'TicketController@update');
+
+////////////////////////////////////////////////////////////// COMMENTS
+
+Route::get('/comments', 'CommentController@index');
+
+Route::get('/comments/comment', 'CommentController@show');
+
+Route::post('/comments', 'CommentController@store');
+
+////////////////////////////////////////////////////////////// GENERAL
 
 Route::get('/faq', function () {
     return view('faq');
