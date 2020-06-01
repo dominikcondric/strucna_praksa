@@ -4,13 +4,15 @@
     margin-top: 50px;
 }
 
-#submit-button {
-    background-color: royalblue;
+.submit-button {
+    background-color: rgb(1, 84, 151);
     color: white;
     height: 50px;
     width: 150px;
+    font: inherit;
     font-size: 27px;
     border-style: none;
+    border-radius: 10%;
 }
 
 .input {
@@ -33,25 +35,26 @@
     
 
 .edit-button {
-    background-color: rgb(1, 84, 151);
-    color: white;
+    background-color: white;
+    color:  rgb(1, 84, 151);
     height: 60px;
     width: 120px;
     font: inherit;
     border-radius: 15%;
-    border-style: none;
+    border-color:  rgb(1, 84, 151);
+    border-style: solid;
     font-weight: 600;
     font-size: 25px;
 }
 
 .edit-button:hover {
-    border-style: ridge;
-    border-width: 5px;
-    border-color: white;
+    background-color:  rgb(1, 84, 151);
+    color: white;
     transition-duration: 120ms;
 }
 
 #ticket-table {
+    display: inline;
     font-size: x-large;
     font-weight: 900;
 }
@@ -66,5 +69,11 @@
     font-size: 20px;
     height: 40px;
     width: 20%;
+}
+
+.error-message {
+    color: rgb(211, 2, 2);
+    font-size: 15px;
+    margin-top: 0px;
 }
 

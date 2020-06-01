@@ -30,4 +30,16 @@ class Ticket extends Model
         return $this->belongsTo('App\State');
     }
    
+    public function assignUser() {
+        $minTickets = \App\User::first()->tickets()->count();
+        $leastTicketsUser = \App\User::first();
+        foreach (\App\User::all() as $user) {
+            if ($user->tickets()->count() < $minTickets) {
+                $minTickets = $user->tickets()->count();
+                $leastTicketsUser = $user;
+            }
+        }
+
+        return ($leastTicketsUser->id);
+    }    
 }

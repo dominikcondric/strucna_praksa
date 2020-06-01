@@ -4,3 +4,24 @@
     justify-content: center;
     font-size: 40px;
 }
+
+.create-button {
+    font: inherit;
+    font-size: 50px;
+    font-weight: bolder;
+    border-color:  rgb(73, 73, 73);
+    border-style: solid;
+    border-width: 10px;
+    margin-right: 50px;
+    margin-top: 50px;
+    color: rgb(73, 73, 73);
+    border-radius: 20%;
+    height: 200px;
+    width: 400px;
+}
+
+.create-button:hover {
+    background-color:rgb(73, 73, 73);
+    color:  white;
+    
+}

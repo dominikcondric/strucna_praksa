@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Ticket;
 use Illuminate\Http\Request;
+use phpDocumentor\Reflection\Types\Null_;
 use PhpParser\Node\Stmt\Echo_;
 
 class TicketController extends Controller
@@ -15,12 +16,29 @@ class TicketController extends Controller
      */
     public function index()
     {
-        if(\App\User::$loggedIn == "Login") return redirect('/welcome');
+        if(\App\User::$loggedIn['id'] == 0) return redirect('/welcome');
+
         return view('tickets.tickets', [
             'tickets' => Ticket::all()
         ]);
     }
 
+    /**
+     * Search for requested items storage.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     */
+    public function search(Request $request) {
+        if(\App\User::$loggedIn['id'] == 0) return redirect('/welcome');
+        
+        if (!$request) {
+            return redirect('/tickets');
+        }  
+
+        return view('tickets.tickets', [
+            'tickets' => Ticket::where("$request->field", $request->search)->get()
+        ]);
+    }
     /**
      * Show the form for creating a new resource.
      *
@@ -29,9 +47,7 @@ class TicketController extends Controller
     public function create()
     {
         if(\App\User::$loggedIn == "Login") return redirect('/welcome');
-        return view('tickets/create', [
-            'message' => null
-        ]);
+        return view('tickets/create');
     }
 
     /**
@@ -46,7 +62,7 @@ class TicketController extends Controller
             'first_name' => 'required',
             'last_name' => 'required',
             'contactNum' => 'required|max:20|min:5|regex:/^[0-9]+$/',
-            // 'email' => 'bail|nullable|regex:^a-zA-z0-9_\.\.+@.+',
+            'email' => 'bail|nullable|email:filter',
             'description' => 'required|max:100|min:5'
         ]);
 
@@ -59,18 +75,9 @@ class TicketController extends Controller
             'state_id' => 1
         ]);
 
-        $minTickets = \App\User::first()->tickets()->count();
-        $leastTicketsUser = \App\User::first();
-        foreach (\App\User::all() as $user) {
-            if ($user->tickets()->count() < $minTickets) {
-                $minTickets = $user->tickets()->count();
-                $leastTicketsUser = $user;
-            }
-        }
+        $ticket->users()->attach($ticket->assignUser());
 
-        $ticket->users()->attach($leastTicketsUser->id);
-
-        return view('tickets.thanks');
+        return redirect('/tickets');
     }
 
     /**
@@ -110,7 +117,31 @@ class TicketController extends Controller
      */
     public function update(Request $request, Ticket $ticket)
     {
-        //
+        
+        if ($request->exists('state')) {
+            $ticket->update([
+                'state_id' => $request->state
+            ]);
+            return redirect("/tickets");
+        }
+        
+        $request->validate([
+            'first_name' => 'required',
+            'last_name' => 'required',
+            'contactNum' => 'required|max:20|min:5|regex:/^[0-9]+$/',
+            'email' => 'bail|nullable|email:filter',
+            'description' => 'required|max:100|min:5'
+            ]);
+            
+            $ticket->update([
+                'first_name' => $request->first_name,
+                'last_name' => $request->last_name,
+                'contactNum' => $request->contactNum,
+                'email' => $request->email,
+                'description' => $request->description,
+            ]);
+                
+        return redirect("/tickets/$ticket->id");
     }
 
     /**
@@ -121,17 +152,8 @@ class TicketController extends Controller
      */
     public function destroy(Ticket $ticket)
     {
-        //
-    }
+        $ticket->delete();
 
-    public function search(Request $request) {
-        if (Ticket::where("$request->field", $request->search)->exists()) {
-            $tickets = Ticket::where("$request->field", $request->search)->get();
-            return redirect('/tickets');
-        } else {
-           return view('/tickets/create', [
-                'message' => "That ticket doesn't exist"
-           ]);
-        }
+        return redirect('/tickets');
     }
 }

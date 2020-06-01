@@ -6,7 +6,7 @@
 @endsection
 
 @section('content')
-    <form action="/tickets/create" style="margin-bottom: 50px; padding-left: 50px; text-align:center">
+    <form action="/tickets/create" style="margin-bottom: 70px; margin-top: 70px; padding-left: 50px; text-align:center">
         <button class="edit-button" style="width: 40%; height: 75px;">CREATE A NEW TICKET</button>
     </form>
 
@@ -20,7 +20,7 @@
           <option value="contactNum">CONTACT</option>
           <option value="email">EMAIL</option>
       </select>
-      <input type="search" name="search" class="input" style="width: 50%; height: 40px">
+      <input type="search" name="search" class="input" style="width: 69%; height: 40px">
          
       <input type="submit" value="FIND" class="edit-button" style="height: 40px">
    </form>
@@ -30,6 +30,7 @@
         <tr>
             <td style="padding-right: 250px">
                 <h2>Name: {{ $ticket->last_name }}, {{ $ticket->first_name }}</h2>
+                <p>Ticket-ID: {{ $ticket->id }}</p>
                 <p>Contact number: {{ $ticket->contactNum }}</p>
                 <p>Email: {{ $ticket->email }}</p>
                 <p>Description: {{ $ticket->description }}</p>

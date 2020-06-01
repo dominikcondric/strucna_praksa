@@ -29,13 +29,9 @@ Route::get('/login', function () {
 
 Route::get('/tickets', 'TicketController@index');
 
-Route::get('/tickets/create', 'TicketController@create');
-
-Route::get('/tickets/thanks', function () {
-    return view('tickets.thanks');
-});
-
 Route::post('/tickets/search', 'TicketController@search');
+
+Route::get('/tickets/create', 'TicketController@create');
 
 Route::get('/tickets/{ticket}', 'TicketController@show');
 
@@ -44,6 +40,8 @@ Route::post('/tickets', 'TicketController@store');
 Route::get('/tickets/{ticket}/edit', 'TicketController@edit');
 
 Route::put('/tickets/{ticket}', 'TicketController@update');
+
+Route::delete('/tickets/{ticket}', 'TicketController@destroy');
 
 ////////////////////////////////////////////////////////////// COMMENTS
 

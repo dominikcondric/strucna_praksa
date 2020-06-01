@@ -37,7 +37,7 @@ class User extends Authenticatable
         'email_verified_at' => 'datetime',
     ];
 
-    public static $loggedIn = ['name' => 'Marko', 'id' => 1];
+    public static $loggedIn = ['name' => 'Ben', 'id' => 1];
 
     public function tickets() {
         return $this->belongsToMany('App\Ticket')->withTimestamps();
