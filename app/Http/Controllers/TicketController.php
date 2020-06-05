@@ -63,7 +63,8 @@ class TicketController extends Controller
             'last_name' => 'required',
             'contactNum' => 'required|max:20|min:5|regex:/^[0-9]+$/',
             'email' => 'bail|nullable|email:filter',
-            'description' => 'required|max:100|min:5'
+            'description' => 'required|max:100|min:5',
+            'users' => 'nullable'
         ]);
 
         $ticket = Ticket::create([
@@ -75,7 +76,11 @@ class TicketController extends Controller
             'state_id' => 1
         ]);
 
-        $ticket->users()->attach($ticket->assignUser());
+        if(!$request->users) $request->users = 1;
+        foreach ($ticket->assignUsers($request->users) as $user) {
+           $ticket->users()->attach($user->id);
+        }
+            
 
         return redirect('/tickets');
     }
@@ -130,7 +135,7 @@ class TicketController extends Controller
             'last_name' => 'required',
             'contactNum' => 'required|max:20|min:5|regex:/^[0-9]+$/',
             'email' => 'bail|nullable|email:filter',
-            'description' => 'required|max:100|min:5'
+            'description' => 'required|max:500|min:5'
             ]);
             
             $ticket->update([

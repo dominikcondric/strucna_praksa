@@ -20,16 +20,6 @@ class CommentController extends Controller
     }
 
     /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function create()
-    {
-        //
-    }
-
-    /**
      * Store a newly created resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
@@ -38,18 +28,18 @@ class CommentController extends Controller
     public function store(Request $request)
     {
         $request->validate([
-            'comment' => 'required',
-            'user' => 'required'
+            'comment' => 'bail|required|min:5|max:500',
+            'user' => 'required',
+            'ticket' => 'required'
         ]);
 
         $comment = Comment::create([
-            'comment' => $request->comment,
-            'user_id' => $request->user,
-        ]);
-
-        $comment->tickets()->attach($request->ticket);
-
-        return redirect('/comments');
+                'comment' => $request->comment,
+                'user_id' => $request->user,
+                'ticket_id' => $request->ticket
+        ]);  
+        
+        return redirect("/tickets/$request->ticket");
     }
 
     /**
@@ -60,18 +50,9 @@ class CommentController extends Controller
      */
     public function show(Comment $comment)
     {
-        //
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  \App\Comment  $comment
-     * @return \Illuminate\Http\Response
-     */
-    public function edit(Comment $comment)
-    {
-        //
+        return view('comments.comment', [
+            'comment' => $comment
+        ]);
     }
 
     /**
@@ -83,7 +64,15 @@ class CommentController extends Controller
      */
     public function update(Request $request, Comment $comment)
     {
-        //
+        $request->validate([
+            'comment' => 'bail|required|min:5|max:500',
+        ]);
+
+        $comment->update([
+            'comment' => $request->comment
+        ]);
+        
+        return redirect("/tickets/".$comment->ticket->id);
     }
 
     /**
@@ -94,6 +83,8 @@ class CommentController extends Controller
      */
     public function destroy(Comment $comment)
     {
-        //
+        $comment->delete();
+
+        return redirect('/tickets/'.$comment->ticket->id);
     }
 }

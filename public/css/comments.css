@@ -1,0 +1,34 @@
+#select-menu {
+    width: 700px;
+    height: 200px;
+    font: inherit;
+    font-size: 30px;
+    color: inherit;
+    text-align: center;
+    font-weight: bolder;
+    border-width: 3px;
+}
+
+form > h1 {
+    font: inherit;
+    font-size: 50px;
+    font-weight: 700;
+    margin-top: 70px;
+}
+
+.input-box {
+    width: 93%;
+    margin-bottom: 20px;
+    height: 300px;
+    font: inherit;
+    font-size: 30px;
+    font-weight: 200;
+    border-width: 3px;
+}
+
+.index-table-item {
+    width: 40%;
+    padding-left: 25px;
+    padding-right: 50px;
+    font-size: 30px;
+}

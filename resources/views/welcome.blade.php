@@ -35,8 +35,8 @@
                     workflow in addition to implementing a centralized issue registry."</i></p>
             </div>
         @else 
-            <h1 style="text-align: center; margin-top: 150px; font-size: 100px">CREATE A NEW:</h1> 
-            <table id="creation">
+            <h1 style="text-align: center; margin-top: 70px; font-size: 100px; margin-bottom: 20px">CREATE A NEW:</h1> 
+            <table style="margin-bottom: 70px">
                 <td>
                     <div style="margin-left: 20%">
                         <form action="/tickets/create" style="display: inline">
@@ -47,7 +47,7 @@
                             <button class="create-button">COMMENT</button>
                         </form>    
 
-                        <form action="/states/create" style="display: inline">
+                        <form action="/states" style="display: inline">
                             <button class="create-button">STATE</button>
                         </form>    
 

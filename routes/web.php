@@ -47,9 +47,27 @@ Route::delete('/tickets/{ticket}', 'TicketController@destroy');
 
 Route::get('/comments', 'CommentController@index');
 
-Route::get('/comments/comment', 'CommentController@show');
+Route::get('/comments/create', 'CommentController@create');
+
+Route::get('/comments/{comment}', 'CommentController@show');
 
 Route::post('/comments', 'CommentController@store');
+
+Route::put('/comments/{comment}', 'CommentController@update');
+
+Route::delete('/comments/{comment}', 'CommentController@destroy');
+
+////////////////////////////////////////////////////////////// STATES
+
+Route::get('/states','StateController@index');
+
+Route::post('/states', 'StateController@store');
+
+Route::post('/states/{state}', 'StateController@update');
+
+Route::get('/states/{state}', 'StateController@show');
+
+Route::delete('/states/{state}', 'StateController@destroy');
 
 ////////////////////////////////////////////////////////////// GENERAL
 

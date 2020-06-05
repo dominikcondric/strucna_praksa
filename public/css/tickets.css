@@ -4,76 +4,31 @@
     margin-top: 50px;
 }
 
-.submit-button {
-    background-color: rgb(1, 84, 151);
-    color: white;
-    height: 50px;
-    width: 150px;
-    font: inherit;
-    font-size: 27px;
-    border-style: none;
-    border-radius: 10%;
-}
-
-.input {
-   width: 93%;
-   height: 30px;
-   margin-bottom: 20px;
-   font: inherit;
-   font-size: 25px;
-   font-weight: 200;
-}
-
-.input-box {
-    width: 93%;
-    margin-bottom: 20px;
-    height: 160px;
-    font: inherit;
-    font-size: 25px;
-    font-weight: 200;
-}
-    
-
-.edit-button {
-    background-color: white;
-    color:  rgb(1, 84, 151);
-    height: 60px;
-    width: 120px;
-    font: inherit;
-    border-radius: 15%;
-    border-color:  rgb(1, 84, 151);
-    border-style: solid;
-    font-weight: 600;
-    font-size: 25px;
-}
-
-.edit-button:hover {
-    background-color:  rgb(1, 84, 151);
-    color: white;
-    transition-duration: 120ms;
-}
-
 #ticket-table {
-    display: inline;
     font-size: x-large;
     font-weight: 900;
+    width: 100%;
 }
 
 .ticket-table-item {
-    padding-right: 500px;
+    padding-right: 200px;
     padding-bottom: 20px;
+    width: 300px;
+    min-width: 300px;
+    max-width: 300px;
 }
 
-#select-menu {
+#select-search {
     font: inherit;
     font-size: 20px;
     height: 40px;
     width: 20%;
 }
 
-.error-message {
-    color: rgb(211, 2, 2);
-    font-size: 15px;
-    margin-top: 0px;
+#select-menu {
+    width: 200px;
+    font: inherit;
+    color: inherit;
+    border: none;
 }
 

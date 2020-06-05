@@ -1,0 +1,71 @@
+.submit-button {
+    background-color: rgb(1, 84, 151);
+    color: white;
+    height: 50px;
+    width: 150px;
+    font: inherit;
+    font-size: 27px;
+    border-style: none;
+    border-radius: 10%;
+}
+
+.input {
+   width: 93%;
+   height: 30px;
+   margin-bottom: 5px;
+   font: inherit;
+   font-size: 25px;
+   font-weight: 200;
+   color: inherit;
+}
+
+.input-box {
+    width: 93%;
+    margin-bottom: 5px;
+    height: 160px;
+    font: inherit;
+    font-size: 25px;
+    font-weight: 200;
+    color: inherit;
+}
+    
+
+.edit-button {
+    background-color: white;
+    color:  rgb(1, 84, 151);
+    height: 60px;
+    width: 120px;
+    font: inherit;
+    border-radius: 15%;
+    border-color:  rgb(1, 84, 151);
+    border-style: solid;
+    font-weight: 600;
+    font-size: 25px;
+}
+
+form > div {
+    margin: 0px;
+    margin-top: 20px;
+}
+
+.edit-button:hover {
+    background-color:  rgb(1, 84, 151);
+    color: white;
+    transition-duration: 120ms;
+}
+
+.error-message {
+    color: rgb(211, 2, 2);
+    font-size: 15px;
+    margin: 0px;
+}
+
+.index-table {
+    width: 100%;
+    font-size: x-large;
+}
+
+.index-table-item {
+    padding-left: 25px;
+    padding-right: 50px;
+}

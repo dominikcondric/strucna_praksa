@@ -22,7 +22,7 @@ class Ticket extends Model
 
     public function comments()
     {
-        return $this->belongsToMany('App\Comment')->withTimestamps();
+        return $this->hasMany('App\Comment');
     }
 
     public function state()
@@ -30,16 +30,8 @@ class Ticket extends Model
         return $this->belongsTo('App\State');
     }
    
-    public function assignUser() {
-        $minTickets = \App\User::first()->tickets()->count();
-        $leastTicketsUser = \App\User::first();
-        foreach (\App\User::all() as $user) {
-            if ($user->tickets()->count() < $minTickets) {
-                $minTickets = $user->tickets()->count();
-                $leastTicketsUser = $user;
-            }
-        }
-
-        return ($leastTicketsUser->id);
+    public function assignUsers($numOfUsers) {
+       $users = User::withCount('tickets')->orderby('tickets_count', 'asc')->take($numOfUsers)->get();
+       return ($users);
     }    
 }

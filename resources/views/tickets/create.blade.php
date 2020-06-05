@@ -1,33 +1,38 @@
 @extends('layout')
 
 @section('links')
-   <link rel="stylesheet" href="{{ asset('css/tickets.css') }}">  
+   <link rel="stylesheet" href="{{ asset('css/tickets.css') }}"> 
+   <link rel="stylesheet" href="{{ asset('css/general.css') }}"> 
 @endsection
 
 @section('content')
    <h1>BEGIN CREATING A NEW TICKET HERE!</h1>
    <form method="POST" action="/tickets" autocomplete="off" class="ticket-form">
       @csrf
-      FIRST NAME : <br><input type="text" name="first_name" class="input" value="{{ old('first_name') }}"><br>
+      <div>FIRST NAME :</div> <input type="text" name="first_name" class="input" value="{{ old('first_name') }}"><br>
       @error('first_name')
           <p class="error-message">*First name required!</p>
       @enderror
-      LAST NAME : <br><input type="text" name="last_name" class="input" value="{{ old('last_name') }}"><br>
+      <div>LAST NAME :</div> <input type="text" name="last_name" class="input" value="{{ old('last_name') }}">
       @error('last_name')
-          <p class="error-message">*First name required!</p>
+          <p class="error-message">*Last name required!</p>
       @enderror
-      CONTACT NUMBER : <br><input type="text" name="contactNum" class="input" value="{{ old('contactNum') }}"><br>
+       <div>CONTACT NUMBER :</div> <input type="text" name="contactNum" class="input" value="{{ old('contactNum') }}">
       @error('contactNum')
           <p class="error-message">*Invalid contact number</p>
       @enderror
-      EMAIL : <br><input type="email" name="email" class="input" value="{{ old('email') }}"><br>
+       <div>EMAIL :</div> <input type="email" name="email" class="input" value="{{ old('email') }}">
       @error('email')
           <p class="error-message">*Invalid email address</p>
       @enderror
-      DESCRIPTION : <br><textarea name="description" class="input-box" value="{{ old('description') }}"></textarea><br>
+       <div>DESCRIPTION :</div> <textarea name="description" class="input-box" value="{{ old('description') }}"></textarea>
       @error('description')
           <p class="error-message">*Invalid description</p>
       @enderror
-      <input type="submit" value="Submit" class="submit-button">
+       <div>ESTIMATED NUMBER OF USERS REQUIRED :</div> <input type="number" name="users" class="input" value="{{ old('users') }}">
+      @error('users')
+          <p class="error-message">*Invalid input for users</p>
+      @enderror
+      <input type="submit" value="Submit" class="submit-button" style="margin-top: 15px">
    </form>
 @endsection

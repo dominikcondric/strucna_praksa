@@ -10,7 +10,7 @@ class Comment extends Model
 {
 
     protected $fillable = [
-        'comment', 'user_id'
+        'comment', 'user_id', 'ticket_id'
     ];
 
     public function user()
@@ -18,9 +18,9 @@ class Comment extends Model
         return $this->belongsTo('App\User');
     }
 
-    public function tickets()
+    public function ticket()
     {
-        return $this->belongsToMany('App\Ticket')->withTimestamps();
+        return $this->belongsTo('App\Ticket');
     }
 }
 

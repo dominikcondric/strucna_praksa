@@ -2,6 +2,7 @@
 
 @section('links')
    <link rel="stylesheet" href="{{ asset('css/tickets.css') }}">  
+   <link rel="stylesheet" href="{{ asset('css/general.css') }}">
 @endsection
 
 @section('content')
@@ -15,7 +16,7 @@
       @enderror
       LAST NAME : <br><input type="text" name="last_name" class="input"  value="{{ $ticket->last_name }}"><br>
       @error('last_name')
-          <p class="error-message">*First name required!</p>
+          <p class="error-message">*Last name required!</p>
       @enderror
       CONTACT NUMBER : <br><input type="text" name="contactNum" class="input"  value="{{ $ticket->contactNum }}"><br>
       @error('contactNum')
