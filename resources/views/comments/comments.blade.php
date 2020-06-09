@@ -8,11 +8,18 @@
 @section('content')
 
     <table style="font-size: xx-large; padding-left: 50px; width: 100%">
-        @foreach (\App\Comment::where('user_id', \App\User::$loggedIn['id'])->get() as $comment)   
+        @foreach (\App\User::find(\App\User::$loggedIn)->comments()->orderby('ticket_id')->get() as $comment)   
+        @if ($loop->first || $previous != $comment->ticket->id)    
+            <tr>
+                <td>
+                    <h1>Ticket {{ $comment->ticket->id }}.</h1>
+                </td>
+            </tr>
+        @endif
+
         <tr>
-            <td style="padding-right: 250px">
-                <p><b>Comment: </b> {{ $comment->comment }}</p>
-                <p><b>Ticket ID:  </b>{{ $comment->ticket->id }}</p>    
+            <td style="padding-right: 250px; padding-left: 100px">
+                <p><b>{{ $loop->iteration }}: </b> {{ $comment->comment }}</p>
                 <hr>
                 <br>
             </td>
@@ -24,6 +31,10 @@
                 </form>
             </td>
         </tr>
+
+        @php
+            $previous = $comment->ticket->id;
+        @endphp
         @endforeach
 </table>
 @endsection

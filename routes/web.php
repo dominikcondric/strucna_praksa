@@ -22,7 +22,7 @@ Route::get('/', function () {
 });
 
 Route::get('/login', function () {
-    return view('login');
+    return view('users.login');
 });
 
 ////////////////////////////////////////////////////////////// TICKETS
@@ -63,11 +63,31 @@ Route::get('/states','StateController@index');
 
 Route::post('/states', 'StateController@store');
 
-Route::post('/states/{state}', 'StateController@update');
+Route::put('/states/{state}', 'StateController@update');
 
 Route::get('/states/{state}', 'StateController@show');
 
 Route::delete('/states/{state}', 'StateController@destroy');
+
+Route::put('/states/apply', 'StateController@apply');
+
+////////////////////////////////////////////////////////////// USERS
+
+Route::get('/users','UserController@index');
+
+Route::get('/users/create','UserController@create');
+
+Route::get('/users/{user}/edit','UserController@edit');
+
+Route::post('/users/login', 'UserController@login');
+
+Route::post('/users', 'UserController@store');
+
+Route::put('/users/{user}', 'UserController@update');
+
+Route::get('/users/{user}', 'UserController@show');
+
+Route::delete('/users/{user}', 'UserController@destroy');
 
 ////////////////////////////////////////////////////////////// GENERAL
 

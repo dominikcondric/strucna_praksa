@@ -83,8 +83,9 @@ class CommentController extends Controller
      */
     public function destroy(Comment $comment)
     {
+        $ticketToRedirect = $comment->ticket->id;
         $comment->delete();
 
-        return redirect('/tickets/'.$comment->ticket->id);
+        return redirect("/tickets/$ticketToRedirect");
     }
 }

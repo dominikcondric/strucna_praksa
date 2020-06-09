@@ -16,7 +16,7 @@ class TicketController extends Controller
      */
     public function index()
     {
-        if(\App\User::$loggedIn['id'] == 0) return redirect('/welcome');
+        // if(\App\User::$loggedIn['id'] == 0) return redirect('/welcome');
 
         return view('tickets.tickets', [
             'tickets' => Ticket::all()
@@ -29,7 +29,7 @@ class TicketController extends Controller
      * @param  \Illuminate\Http\Request  $request
      */
     public function search(Request $request) {
-        if(\App\User::$loggedIn['id'] == 0) return redirect('/welcome');
+        // if(\App\User::$loggedIn['id'] == 0) return redirect('/welcome');
         
         if (!$request) {
             return redirect('/tickets');
@@ -58,13 +58,15 @@ class TicketController extends Controller
      */
     public function store(Request $request)
     {
+
+        $userCount = \App\User::count();
         $request->validate([
             'first_name' => 'required',
             'last_name' => 'required',
             'contactNum' => 'required|max:20|min:5|regex:/^[0-9]+$/',
             'email' => 'bail|nullable|email:filter',
             'description' => 'required|max:100|min:5',
-            'users' => 'nullable'
+            'users' => "nullable|max:$userCount|min:1"
         ]);
 
         $ticket = Ticket::create([
@@ -93,7 +95,7 @@ class TicketController extends Controller
      */
     public function show(Ticket $ticket)
     {
-        if(\App\User::$loggedIn == "Login") return redirect('/welcome');
+        // if(\App\User::$loggedIn == "Login") return redirect('/welcome');
         return view('/tickets.ticket', [
             'ticket' => $ticket
         ]);
@@ -107,7 +109,7 @@ class TicketController extends Controller
      */
     public function edit(Ticket $ticket)
     {
-        if(\App\User::$loggedIn == "Login") return redirect('/welcome');
+        // if(\App\User::$loggedIn == "Login") return redirect('/welcome');
         return view('tickets.edit', [
             'ticket' => $ticket
         ]);
@@ -122,12 +124,22 @@ class TicketController extends Controller
      */
     public function update(Request $request, Ticket $ticket)
     {
-        
         if ($request->exists('state')) {
             $ticket->update([
                 'state_id' => $request->state
             ]);
             return redirect("/tickets");
+        } else if ($request->exists('usersNum')) {
+            $counter = $request->usersNum;
+            foreach ($ticket->assignUsers(\App\User::count()) as $newUser) {
+                if (!$newUser->tickets->contains($ticket)) {
+                    $ticket->users()->attach($newUser->id);
+                    --$counter;
+                }    
+                
+                if ($counter == 0) break;
+            }
+            return redirect("/tickets/$ticket->id");
         }
         
         $request->validate([

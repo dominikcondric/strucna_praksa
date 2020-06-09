@@ -22,7 +22,7 @@
             </div>
         @endif --}}
 
-        @if ($loggedIn['id'] == 0)
+        @if (\App\User::$loggedIn)
             <div id="welcome-item" style="margin: 50px">
                 <h2><big>You may ask yourself what ticketing system is...</big></h2>
                 <p style="font-size: 30px; margin: 30px">Well, according to Wikipedia : <i>"An issue tracking system (also ITS, trouble ticket system, 

@@ -60,25 +60,47 @@
     
     <tr>
         <td>Current state: </td>
-        <td>
-            <form method="POST" action="/tickets/{{$ticket->id}}" style="display: inline">
-                @csrf
-                @method('PUT')
-                <select name="state" id="select-menu">
-                    @foreach (\App\State::all() as $state)
-                    <option value="{{ $state->id }}" 
-                        @if ($ticket->state->state == $state->state)
-                         selected="selected"
-                        @endif>
-                        {{ $state->state }}</option>
-                    @endforeach
-                </select>
-        </td>
+        @if ($ticket->users->contains(\App\User::$loggedIn))
+            <td>
+                <form method="POST" action="/tickets/{{$ticket->id}}" style="display: inline">
+                    @csrf
+                    @method('PUT')
+                    <select name="state" id="select-menu">
+                        @foreach (\App\State::all() as $state)
+                        <option value="{{ $state->id }}" 
+                            @if ($ticket->state->state == $state->state)
+                            selected="selected"
+                            @endif>
+                            {{ $state->state }}</option>
+                        @endforeach
+                    </select>
+            </td>
 
+            <td>
+                <input type="submit" value="STATE" class="edit-button" style="height: 50px; width: 150px; margin-left: 190px">
+                </form>
+            </td>
+
+            <tr>
+                <td class="ticket-table-item">Assign additional users to the ticket: </td>
+
+                <td class="ticket-table-item">
+                    <form action="/tickets/{{$ticket->id}}" method="POST">
+                        @csrf
+                        @method('PUT')
+                        <input type="number" name="usersNum" class="input">
+                </td>
+
+                <td class="ticket-table-item">
+                        <input type="submit" value="ASSIGN" class="edit-button" style="height: 50px; width: 150px; margin-left: 190px">
+                    </form>    
+                </td>
+            </tr>
+        @else 
         <td>
-            <input type="submit" value="STATE" class="edit-button" style="height: 50px; width: 150px; top: 270px; margin-left: 190px">
-            </form>
+            {{ $ticket->state->state }}
         </td>
+        @endif
     </tr>
 
     <tr> <td><br>Comments: </td></tr>
@@ -101,7 +123,7 @@
                 <h4>{{ $comment->user->first_name }} {{ $comment->user->last_name }}</h4>
             </td>
 
-            @if($comment->user->id == \App\User::$loggedIn['id'])
+            @if($comment->user->id == \App\User::$loggedIn)
                 <td class="index-table-item" style="width: 50%">
                     <form action="/comments/{{ $comment->id }}" method="POST">
                         @csrf
@@ -130,13 +152,13 @@
 </table>
 
 
-@if ($ticket->users->contains(\App\User::$loggedIn['id']))    
+@if ($ticket->users->contains(\App\User::$loggedIn))    
     <form method="POST" action="/comments" style="margin-top: 100px" class="ticket-form">
         @csrf
         <h3>Write a comment about this ticket: </h3>   
         <textarea  style="display: block" name="comment" class="input-box"></textarea>
         <input type="hidden" name="ticket" value="{{ $ticket->id }}">
-        <input type="hidden" name="user" value="{{ \App\User::$loggedIn['id'] }}">
+        <input type="hidden" name="user" value="{{ \App\User::$loggedIn }}">
         <input type="submit" class="submit-button" style="margin-top: 10px" value="SUBMIT">
     </form>
 @endif

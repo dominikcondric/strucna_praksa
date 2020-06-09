@@ -15,8 +15,8 @@
 
             <div id="login-button-area">
                 <form action="/login">
-                    @if ($loggedIn['id'] != 0)
-                        <button class="button">{{ $loggedIn['name'] }}</button>
+                    @if (\App\User::$loggedIn)
+                        <button class="button">{{ \App\User::find(\App\User::$loggedIn)->first_name }}</button>
                     @else
                         <button class="button"> Login </button>
                     @endif
@@ -27,7 +27,7 @@
                 <table>
                     <tr>
                         <td>
-                            @if ($loggedIn['id'] != 0)
+                            @if (\App\User::$loggedIn)
                                 <a href="/tickets" class="links">Tickets</a>
                                 <a href="/comments" class="links">Comments</a>
                                 <a href="/states" class="links">States</a>

@@ -16,7 +16,7 @@ class User extends Authenticatable
      * @var array
      */
     protected $fillable = [
-        'first_name', 'email',
+        'first_name', 'last_name', 'email', 'password', 'admin'
     ];
 
     /**
@@ -24,9 +24,9 @@ class User extends Authenticatable
      *
      * @var array
      */
-    /* protected $hidden = [
-        'remember_token',
-    ]; */
+     protected $hidden = [
+      //  'remember_token', 'password'
+    ]; 
 
     /**
      * The attributes that should be cast to native types.
@@ -37,7 +37,7 @@ class User extends Authenticatable
         'email_verified_at' => 'datetime',
     ];
 
-    public static $loggedIn = ['name' => 'Ben', 'id' => 1];
+    public static $loggedIn = 1;
 
     public function tickets() {
         return $this->belongsToMany('App\Ticket')->withTimestamps();

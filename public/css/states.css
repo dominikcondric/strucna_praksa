@@ -11,7 +11,7 @@
     text-align: center;
 }
 
-#state-table {
+.state-table {
     text-align: center;
     width: 100%;
     height: 100%;
@@ -19,8 +19,15 @@
 }
 
 .index-table-item {
-    width: 33%;
+    width: 25%;
     padding-left: 25px;
     padding-right: 50px;
     text-align: center;
+}
+
+#select-menu {
+    width: 500px;
+    font: inherit;
+    color: inherit;
+    border: solid;
 }

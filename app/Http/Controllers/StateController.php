@@ -86,4 +86,17 @@ class StateController extends Controller
 
         return redirect('/states');
     }
+
+    public function apply(Request $request) {
+
+        foreach (\App\Ticket::find($request->tickets) as $ticket) {
+            if ($ticket->state->id != $request->state) {
+                $ticket->update([
+                    'state_id' => $request->state
+                ]);
+            }
+        }
+
+        return redirect('/states');
+    }
 }

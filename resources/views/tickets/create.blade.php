@@ -7,7 +7,7 @@
 
 @section('content')
    <h1>BEGIN CREATING A NEW TICKET HERE!</h1>
-   <form method="POST" action="/tickets" autocomplete="off" class="ticket-form">
+   <form method="POST" action="/tickets" autocomplete="off" id="ticket-form">
       @csrf
       <div>FIRST NAME :</div> <input type="text" name="first_name" class="input" value="{{ old('first_name') }}"><br>
       @error('first_name')
@@ -25,7 +25,7 @@
       @error('email')
           <p class="error-message">*Invalid email address</p>
       @enderror
-       <div>DESCRIPTION :</div> <textarea name="description" class="input-box" value="{{ old('description') }}"></textarea>
+       <div>DESCRIPTION :</div> <textarea name="description" class="input-box">{{ old('description') }}</textarea>
       @error('description')
           <p class="error-message">*Invalid description</p>
       @enderror
