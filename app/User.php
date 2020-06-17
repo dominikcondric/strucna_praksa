@@ -5,6 +5,7 @@ namespace App;
 use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
+use Illuminate\Support\Facades\Hash;
 
 class User extends Authenticatable
 {
@@ -25,7 +26,7 @@ class User extends Authenticatable
      * @var array
      */
      protected $hidden = [
-      //  'remember_token', 'password'
+        'remember_token', /* 'password' */
     ]; 
 
     /**
@@ -37,14 +38,22 @@ class User extends Authenticatable
         'email_verified_at' => 'datetime',
     ];
 
-    public static $loggedIn = 1;
+    public static function createFirst() {
+        User::create([
+            'first_name' => 'Bilbo',
+            'last_name' => 'Baggins',
+            'email' => 'bilbo@mail.com',
+            'password' => Hash::make('iambilbo'),
+            'admin' => 1
+        ]);
+    }
 
     public function tickets() {
-        return $this->belongsToMany('App\Ticket')->withTimestamps();
+        return $this->belongsToMany(Ticket::class)->withTimestamps();
     }
 
     public function comments()
     {
-        return $this->hasMany('App\Comment');
+        return $this->hasMany(Comment::class);
     }
 }

@@ -15,6 +15,12 @@ class State extends Model
 
     public function tickets()
     {
-        return $this->HasMany('App\Ticket');
+        return $this->HasMany(Ticket::class);
+    }
+
+    public static function createFirst() {
+        State::create([
+            'state' => 'Open'
+        ]);
     }
 }

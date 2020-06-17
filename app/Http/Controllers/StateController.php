@@ -78,24 +78,12 @@ class StateController extends Controller
      */
     public function destroy(State $state)
     {
+        if ($state->id == 1) return redirect('/states');;
         \App\Ticket::where('state_id', $state->id)->update([
             'state_id' => 1
         ]);
 
         $state->delete();
-
-        return redirect('/states');
-    }
-
-    public function apply(Request $request) {
-
-        foreach (\App\Ticket::find($request->tickets) as $ticket) {
-            if ($ticket->state->id != $request->state) {
-                $ticket->update([
-                    'state_id' => $request->state
-                ]);
-            }
-        }
 
         return redirect('/states');
     }

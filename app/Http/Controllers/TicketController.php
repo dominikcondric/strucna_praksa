@@ -16,8 +16,6 @@ class TicketController extends Controller
      */
     public function index()
     {
-        // if(\App\User::$loggedIn['id'] == 0) return redirect('/welcome');
-
         return view('tickets.tickets', [
             'tickets' => Ticket::all()
         ]);
@@ -29,7 +27,6 @@ class TicketController extends Controller
      * @param  \Illuminate\Http\Request  $request
      */
     public function search(Request $request) {
-        // if(\App\User::$loggedIn['id'] == 0) return redirect('/welcome');
         
         if (!$request) {
             return redirect('/tickets');
@@ -46,7 +43,6 @@ class TicketController extends Controller
      */
     public function create()
     {
-        if(\App\User::$loggedIn == "Login") return redirect('/welcome');
         return view('tickets/create');
     }
 
@@ -75,7 +71,8 @@ class TicketController extends Controller
             'contactNum' => $request->contactNum,
             'email' => $request->email,
             'description' => $request->description,
-            'state_id' => 1
+            'state_id' => 1,
+            'usersRequest' => 0
         ]);
 
         if(!$request->users) $request->users = 1;
@@ -109,7 +106,6 @@ class TicketController extends Controller
      */
     public function edit(Ticket $ticket)
     {
-        // if(\App\User::$loggedIn == "Login") return redirect('/welcome');
         return view('tickets.edit', [
             'ticket' => $ticket
         ]);
@@ -122,26 +118,7 @@ class TicketController extends Controller
      * @param  \App\Ticket  $ticket
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Ticket $ticket)
-    {
-        if ($request->exists('state')) {
-            $ticket->update([
-                'state_id' => $request->state
-            ]);
-            return redirect("/tickets");
-        } else if ($request->exists('usersNum')) {
-            $counter = $request->usersNum;
-            foreach ($ticket->assignUsers(\App\User::count()) as $newUser) {
-                if (!$newUser->tickets->contains($ticket)) {
-                    $ticket->users()->attach($newUser->id);
-                    --$counter;
-                }    
-                
-                if ($counter == 0) break;
-            }
-            return redirect("/tickets/$ticket->id");
-        }
-        
+    public function update(Request $request, Ticket $ticket) {   
         $request->validate([
             'first_name' => 'required',
             'last_name' => 'required',
@@ -172,5 +149,102 @@ class TicketController extends Controller
         $ticket->delete();
 
         return redirect('/tickets');
+    }
+
+    public function removeUsers(Ticket $ticket, Request $request) {
+        foreach ($request->removedUsers as $user) {
+            if ($user != 0) {
+                $ticket->users()->detach($user);
+            }
+        }
+
+        return redirect("/tickets/$ticket->id");
+    }
+
+
+    public function addUsers(Ticket $ticket, Request $request) {
+        $counter = $request->usersNum;
+        if ($request->newUser != 0) {
+            $ticket->users()->attach($request->newUser);
+            --$counter;
+        }
+
+        foreach ($ticket->assignUsers(\App\User::count()) as $newUser) {
+            if (!$newUser->tickets->contains($ticket) && $counter > 0) {
+                $ticket->users()->attach($newUser->id);
+                --$counter;
+            }    
+            
+            if ($counter == 0) break;
+        }
+
+        $ticket->update([
+            'usersRequest' => 0
+        ]);
+        
+        return redirect("/tickets/$ticket->id");
+    }
+
+
+    public function changeState(Ticket $ticket, Request $request) {
+        $ticket->update([
+            'state_id' => $request->state
+        ]);
+        return redirect("/tickets/".$request->ticket->id);
+    }
+
+    public function changeStates(Request $request) {
+        foreach ($request->tickets as $ticketId) {
+            $ticket = Ticket::find($ticketId);
+            if ($ticket->state != $request->state) {
+                $ticket->update([
+                    'state_id' => $request->state
+                ]);
+            }
+        }
+
+        return redirect('/states');
+    }
+
+    public function request(Ticket $ticket) {
+        if ($ticket->usersRequest) {
+            $ticket->update([
+                'usersRequest' => 0
+            ]);
+        } else {
+            $ticket->update([
+                'usersRequest' => 1
+            ]);
+        }
+
+        return redirect("/tickets/$ticket->id");
+    }
+
+    public function findClient(Request $request) {
+        $request->validate([
+            'id' => 'required|numeric|min:1',
+            'first_name' => 'required',
+            'last_name' => 'required',
+            'contactNum' => 'required|max:20|min:5|regex:/^[0-9]+$/'
+        ]);
+
+        if (Ticket::where([
+            ['id', '=', $request->id],
+            ['first_name', '=', $request->first_name],
+            ['last_name', '=', $request->last_name],
+            ['contactNum', '=', $request->contactNum]
+        ])->exists()) {
+            $ticket = Ticket::where([
+                ['id', '=', $request->id],
+                ['first_name', '=', $request->first_name],
+                ['last_name', '=', $request->last_name],
+                ['contactNum', '=', $request->contactNum]
+            ])->first();
+            return view('find-your-ticket', [
+                'ticket' => $ticket
+            ]);
+        } 
+
+        return null;
     }
 }

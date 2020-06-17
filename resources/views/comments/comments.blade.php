@@ -8,7 +8,7 @@
 @section('content')
 
     <table style="font-size: xx-large; padding-left: 50px; width: 100%">
-        @foreach (\App\User::find(\App\User::$loggedIn)->comments()->orderby('ticket_id')->get() as $comment)   
+        @foreach (Auth::user()->comments()->orderby('ticket_id')->get() as $comment)   
         @if ($loop->first || $previous != $comment->ticket->id)    
             <tr>
                 <td>

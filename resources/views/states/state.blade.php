@@ -31,7 +31,7 @@
         </td>
 
         <td class="index-table-item" style="width: 33%">
-            <form method="POST" action="/states/apply">
+            <form method="POST" action="/tickets/changeStates">
                 @csrf
                 @method('PUT')
                 <select name="tickets[]" id="select-menu" multiple>
@@ -53,14 +53,14 @@
     </tr>
 </table>
         
-
-    <form action="/states/{{ $state->id }}" method="POST">
-        @csrf
-        @method('DELETE')
-        <button class="edit-button" style="position: relative; margin-top: 50px; margin-left: 39%;
-         width: 300px; height: 100px; font-size: 30px">DELETE STATE</button>
-    </form>    
-
+    @if($state->id != 1)
+        <form action="/states/{{ $state->id }}" method="POST">
+            @csrf
+            @method('DELETE')
+            <button class="edit-button" style="position: relative; margin-top: 50px; margin-left: 39%;
+            width: 300px; height: 100px; font-size: 30px">DELETE STATE</button>
+        </form>    
+    @endif
 
     
 @endsection

@@ -22,7 +22,7 @@
             </div>
         @endif --}}
 
-        @if (\App\User::$loggedIn)
+        @guest
             <div id="welcome-item" style="margin: 50px">
                 <h2><big>You may ask yourself what ticketing system is...</big></h2>
                 <p style="font-size: 30px; margin: 30px">Well, according to Wikipedia : <i>"An issue tracking system (also ITS, trouble ticket system, 
@@ -43,7 +43,7 @@
                             <button class="create-button">TICKET</button>
                         </form>    
 
-                       <form action="/comments/create" style="display: inline">
+                       <form action="/tickets" style="display: inline">
                             <button class="create-button">COMMENT</button>
                         </form>    
 
@@ -51,12 +51,12 @@
                             <button class="create-button">STATE</button>
                         </form>    
 
-                        <form action="/users/create" style="display: inline">
+                        <form action="/register" style="display: inline">
                             <button class="create-button">USER</button>
                         </form>    
                     </div>
                 </td>
             </table>
-        @endif
+        @endguest
         
 @endsection

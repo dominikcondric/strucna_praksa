@@ -17,77 +17,83 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
-});
-
-Route::get('/login', function () {
-    return view('users.login');
-});
-
 ////////////////////////////////////////////////////////////// TICKETS
 
-Route::get('/tickets', 'TicketController@index');
+Route::get('/tickets', 'TicketController@index')->middleware('auth');
 
-Route::post('/tickets/search', 'TicketController@search');
+Route::post('/tickets/search', 'TicketController@search')->middleware('auth');
 
-Route::get('/tickets/create', 'TicketController@create');
+Route::get('/tickets/create', 'TicketController@create')->middleware('auth');
 
-Route::get('/tickets/{ticket}', 'TicketController@show');
+Route::get('/tickets/{ticket}', 'TicketController@show')->middleware('auth');
 
-Route::post('/tickets', 'TicketController@store');
+Route::post('/tickets', 'TicketController@store')->middleware('auth');
 
-Route::get('/tickets/{ticket}/edit', 'TicketController@edit');
+Route::put('/tickets/changeStates', 'TicketController@changeStates')->middleware('auth');
 
-Route::put('/tickets/{ticket}', 'TicketController@update');
+Route::get('/tickets/{ticket}/edit', 'TicketController@edit')->middleware('auth');
 
-Route::delete('/tickets/{ticket}', 'TicketController@destroy');
+Route::put('/tickets/{ticket}', 'TicketController@update')->middleware('auth');
+
+Route::delete('/tickets/{ticket}', 'TicketController@destroy')->middleware('auth');
+
+Route::put('/tickets/{ticket}/addUsers', 'TicketController@addUsers')->middleware('auth');
+
+Route::put('/tickets/{ticket}/removeUsers', 'TicketController@removeUsers')->middleware('auth');
+
+Route::put('/tickets/{ticket}/changeState', 'TicketController@changeState')->middleware('auth');
+
+Route::put('tickets/{ticket}/request', 'TicketController@request')->middleware('auth');
+
+Route::get('/find-your-ticket', function () {
+    return view('find-your-ticket', [
+        'ticket' => null
+    ]);
+});
+
+Route::post('/find-your-ticket', 'TicketController@findClient');
 
 ////////////////////////////////////////////////////////////// COMMENTS
 
-Route::get('/comments', 'CommentController@index');
+Route::get('/comments', 'CommentController@index')->middleware('auth');
 
-Route::get('/comments/create', 'CommentController@create');
+Route::get('/comments/create', 'CommentController@create')->middleware('auth');
 
-Route::get('/comments/{comment}', 'CommentController@show');
+Route::get('/comments/{comment}', 'CommentController@show')->middleware('auth');
 
-Route::post('/comments', 'CommentController@store');
+Route::post('/comments', 'CommentController@store')->middleware('auth');
 
-Route::put('/comments/{comment}', 'CommentController@update');
+Route::put('/comments/{comment}', 'CommentController@update')->middleware('auth');
 
-Route::delete('/comments/{comment}', 'CommentController@destroy');
+Route::delete('/comments/{comment}', 'CommentController@destroy')->middleware('auth');
 
 ////////////////////////////////////////////////////////////// STATES
 
-Route::get('/states','StateController@index');
+Route::get('/states','StateController@index')->middleware('auth');
 
-Route::post('/states', 'StateController@store');
+Route::post('/states', 'StateController@store')->middleware('auth');
 
-Route::put('/states/{state}', 'StateController@update');
+Route::put('/states/{state}', 'StateController@update')->middleware('auth');
 
-Route::get('/states/{state}', 'StateController@show');
+Route::get('/states/{state}', 'StateController@show')->middleware('auth');
 
-Route::delete('/states/{state}', 'StateController@destroy');
-
-Route::put('/states/apply', 'StateController@apply');
+Route::delete('/states/{state}', 'StateController@destroy')->middleware('auth');
 
 ////////////////////////////////////////////////////////////// USERS
 
-Route::get('/users','UserController@index');
+Route::get('/users','UserController@index')->middleware('auth');
 
-Route::get('/users/create','UserController@create');
+Route::get('/users/{user}/edit','UserController@edit')->middleware('auth');
 
-Route::get('/users/{user}/edit','UserController@edit');
+Route::post('/users/login', 'UserController@login')->middleware('auth');
 
-Route::post('/users/login', 'UserController@login');
+Route::put('/users/{user}', 'UserController@update')->middleware('auth');
 
-Route::post('/users', 'UserController@store');
+Route::get('/users/{user}', 'UserController@show')->middleware('auth');
 
-Route::put('/users/{user}', 'UserController@update');
+Route::delete('/users/{user}', 'UserController@destroy')->middleware('auth');
 
-Route::get('/users/{user}', 'UserController@show');
-
-Route::delete('/users/{user}', 'UserController@destroy');
+Route::put('/users/{user}/promote', 'UserController@promote')->middleware('auth');
 
 ////////////////////////////////////////////////////////////// GENERAL
 
@@ -100,8 +106,16 @@ Route::get('/about-us', function () {
 });
 
 Route::get('/contact', function () {
-    return view('contact'); 
+    return view('contact-us'); 
 });
+
+Route::get('/', function () {
+    return view('welcome');
+});
+
+Auth::routes();
+
+Route::get('/home', 'HomeController@index')->name('home');
 
 Route::redirect('/{any}', '/');
     

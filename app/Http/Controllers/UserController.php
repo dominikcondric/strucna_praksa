@@ -9,6 +9,7 @@ use Illuminate\Http\Request;
 use Illuminate\Validation\Rule;
 use Illuminate\Validation\ValidationData;
 use Illuminate\Validation\ValidationException;
+use Illuminate\Support\Facades\Hash;
 
 class UserController extends Controller
 {
@@ -32,34 +33,6 @@ class UserController extends Controller
     public function create()
     {
         return view('users.create');
-    }
-
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
-    public function store(Request $request)
-    {
-        $request->validate([
-            'first_name' => 'required|string',
-            'last_name' => 'required|string',
-            'email' => 'bail|required|unique:App\User,email|email:filter',
-            'password' => 'bail|required|string|min:8|max:50',
-            'passwordConfirm' => 'required|same:password',
-            'admin' => 'required'
-        ]);
-
-        $user = User::create([
-            'first_name' => $request->first_name,
-            'last_name' => $request->last_name,
-            'email' => $request->email,
-            'password' => $request->password,
-            'admin' => $request->admin
-        ]);
-
-        return redirect('/users');
     }
 
     /**
@@ -110,7 +83,7 @@ class UserController extends Controller
             'first_name' => $request->first_name,
             'last_name' => $request->last_name,
             'email' => $request->email,
-            'password' => $request->password
+            'password' => Hash::make($request->password)
         ]);
 
         return redirect("/users/$user->id");
@@ -142,19 +115,11 @@ class UserController extends Controller
         return redirect('/users');
     }
 
-    public function login(Request $request) {
-        $request->validate([
-            'email' => ['bail', 'required', 'email:filter', 'exists:App\User,email'],
+    public function promote(User $user) {
+        $user->update([
+            'admin' => 1
         ]);
-            
-        $userPass = User::where('email', $request->email)->first()->password;
-        if ($request->password != $userPass) {
-            throw ValidationException::withMessages(['password' => 'Wrong password']);
-        }
-    
-        
 
-        return redirect('/welcome');
-        
+        return redirect("/users/$user->id");
     }
 }

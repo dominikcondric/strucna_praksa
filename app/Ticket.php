@@ -8,7 +8,7 @@ class Ticket extends Model
 {
 
     protected $fillable = [
-        'first_name', 'last_name', 'contactNum', 'email', 'description', 'state_id'
+        'first_name', 'last_name', 'contactNum', 'email', 'description', 'state_id', 'usersRequest'
     ];
 
     protected $casts = [
@@ -17,17 +17,17 @@ class Ticket extends Model
 
     public function users()
     {
-        return $this->belongsToMany('App\User')->withTimestamps();
+        return $this->belongsToMany(User::class)->withTimestamps();
     }
 
     public function comments()
     {
-        return $this->hasMany('App\Comment');
+        return $this->hasMany(Comment::class);
     }
 
     public function state()
     {
-        return $this->belongsTo('App\State');
+        return $this->belongsTo(State::class);
     }
    
     public function assignUsers($numOfUsers) {

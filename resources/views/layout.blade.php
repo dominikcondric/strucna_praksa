@@ -15,11 +15,11 @@
 
             <div id="login-button-area">
                 <form action="/login">
-                    @if (\App\User::$loggedIn)
-                        <button class="button">{{ \App\User::find(\App\User::$loggedIn)->first_name }}</button>
-                    @else
+                    @guest
                         <button class="button"> Login </button>
-                    @endif
+                    @else
+                        <button class="button">{{ Auth::user()->first_name }}</button>
+                    @endguest
                 </form>    
             </div>
 
@@ -27,15 +27,16 @@
                 <table>
                     <tr>
                         <td>
-                            @if (\App\User::$loggedIn)
+                            @guest
+                                <a href="/find-your-ticket" class="links">Find your ticket!</a>
+                                <a href="/contact" class="links">Contact</a>
+                                <a href="/faq" class="links">FAQ</a>
+                                <a href="/about-us" class="links">About Us</a>
+                            @else
                                 <a href="/tickets" class="links">Tickets</a>
                                 <a href="/comments" class="links">Comments</a>
                                 <a href="/states" class="links">States</a>
                                 <a href="/users" class="links">Users</a>
-                            @else
-                                <a href="/contact" class="links">Contact</a>
-                                <a href="/faq" class="links">FAQ</a>
-                                <a href="/about-us" class="links">About Us</a>
                             @endif
                         </td>
                     </tr>

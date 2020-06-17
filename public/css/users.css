@@ -3,3 +3,18 @@
     font-weight: 700;
     margin-top: 50px;
 }
+
+#admin-promote {
+    background-color: rgb(1, 84, 151);
+    color: white;
+    text-align: center;
+    width: 500px;
+    height: 100px;
+    font: inherit;
+    font-size: 40px;
+}
+
+#admin {
+    text-align: center;
+    margin-top: 80px;
+}
