@@ -79,5 +79,6 @@ Dodatno (nije potrebno, ali ako budete turbo brzi):
 ## Napredak
 18.5. - napravljene migracije i modeli te veze između modela(nisam siguran ako su dobre)  
 19.5. - popravljeni odnosi između modela(comment i ticket) i dodani atributi u tablice  
-1.6. - napravljen cijeli CRUD za ticket uz dodatak search funkcije za pretragu ticketa, dodana mogućnost promjene stanja ticketa kao i komentiranja ticketa, započeta izrada CRUD-a za komentare
+1.6. - napravljen cijeli CRUD za ticket uz dodatak search funkcije za pretragu ticketa, dodana mogućnost promjene stanja ticketa kao i komentiranja ticketa, započeta izrada CRUD-a za komentare  
+17.6. - cijela stranica funckionalna uz dodatak određenih mogućnosti poput requesta za više usera na ticket. Dio stranice za klijente također dodan te izrađen cijeli autentikacijski sustav.
 
